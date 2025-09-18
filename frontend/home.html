@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knowledge Book</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+      color: #fff;
+      background-attachment: fixed;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 52, 96, 0.9);
+      padding: 15px 50px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar h1 {
+      font-size: 28px;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px #16213e;
+    }
+
+    .search-box input {
+      padding: 8px 12px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+      width: 220px;
+    }
+
+    /* Hero */
+    .hero {
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      position: relative;
+      padding-bottom: 100px; /* Increased gap below hero */
+    }
+
+    .hero h2 {
+      font-size: 48px;
+      text-shadow: 2px 2px 8px #000;
+      margin-bottom: 50px; /* More gap above button */
+    }
+
+    .hero button {
+      padding: 14px 35px;
+      font-size: 20px;
+      border: none;
+      border-radius: 30px;
+      background: #e94560;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    .hero button:hover {
+      background: #ff2e63;
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.5);
+    }
+
+    /* Courses */
+    .courses {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px; /* Gap between boxes */
+      padding: 50px;
+    }
+
+    .course-box {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(12px);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .course-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    }
+
+    .course-box h3 {
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    /* Roadmaps Button Red Gradient & Red Font */
+    .roadmap-btn  {
+      display: block;
+      text-decoration: none;
+      background: linear-gradient(45deg, #ff0000, #ff4b2b);
+      color:RED; /* Font color red */
+      font-weight: bold;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 30px;
+      transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .roadmap-btn:hover {
+      background: linear-gradient(45deg, #ff4b2b, #ff0000);
+      transform: scale(1.05);
+      
+    }
+
+    /* Other Links */
+    .course-box a {
+      display: block;
+      text-decoration: none;
+      background: #0f3460;
+      color: #fff;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .course-box a:hover {
+      background: #16213e;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(15, 52, 96, 0.9);
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+      backdrop-filter: blur(8px);
+    }
+
+    footer p {
+      margin: 8px 0;
+      color: #ddd;
+    }
+
+    footer a {
+      color: #ff416c;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: 0.3s;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .courses {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .courses {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>Knowledge Book</h1>
+    <div class="search-box">
+      <input type="text" placeholder="Search courses...">
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h2>Explore Free Resources, Notes & Roadmaps</h2>
+    <button onclick="document.getElementById('courses').scrollIntoView({behavior: 'smooth'})">
+      Get Started
+    </button>
+  </section>
+
+  <!-- Courses -->
+  <section class="courses" id="courses">
+    <!-- BSc -->
+    <div class="course-box">
+      <h3>BSc</h3>
+      <a href="roadmaps.html" class="roadmap-btn">Roadmaps</a>
+      <a href="#">C Programming</a>
+      <a href="#">Java</a>
+      <a href="#">DBMS</a>
+      <a href="#">Operating Systems</a>
+    </div>
+
+    <!-- BBA -->
+    <div class="course-box">
+      <h3>BBA</h3>
+      <a href="roadmaps.html" class="roadmap-btn">Roadmaps</a>
+      <a href="#">Business Management</a>
+      <a href="#">Economics</a>
+      <a href="#">Accounting</a>
+      <a href="#">Marketing</a>
+    </div>
+
+    <!-- BCA -->
+    <div class="course-box">
+      <h3>BCA</h3>
+      <a href="roadmaps.html" class="roadmap-btn">Roadmaps</a>
+      <a href="#">Python</a>
+      <a href="#">Data Structures</a>
+      <a href="#">Web Development</a>
+      <a href="#">Networking</a>
+    </div>
+
+    <!-- Data Science -->
+    <div class="course-box">
+      <h3>Data Science</h3>
+      <a href="roadmaps.html" class="roadmap-btn">Roadmaps</a>
+      <a href="#">Machine Learning</a>
+      <a href="#">Data Analytics</a>
+      <a href="#">AI Basics</a>
+      <a href="#">Statistics</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Knowledge Book. All rights reserved.</p>
+    <p>
+      <a href="#">Privacy Policy</a> | 
+      <a href="#">Terms of Service</a> | 
+      <a href="contact.html">Contact</a>
+    </p>
+  </footer>
+
+</body>
+</html>

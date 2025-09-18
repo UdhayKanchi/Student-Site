@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Portal Access</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Hover glow effect on inputs */
+input:hover {
+  box-shadow: 0 0 8px rgba(0, 198, 255, 0.6);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Ripple effect on buttons */
+.login-btn:active, .register-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 0 12px rgba(0, 198, 255, 0.6);
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+/* Bounce effect on icons */
+.background-icons img:hover {
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* Scale-up effect on login box hover */
+.login-box:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at center, #1e3c72, #2a5298);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .background-icons {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .background-icons img {
+      position: absolute;
+      width: 80px;
+      opacity: 0.08;
+      animation: float 16s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-60px) rotate(180deg); }
+      100% { transform: translateY(0) rotate(360deg); }
+    }
+
+    .login-box {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+      animation: fadeIn 1.2s ease forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    label {
+      color: #eee;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    input::placeholder {
+      color: #ccc;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 38px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .login-btn, .register-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #00c6ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .login-btn:hover, .register-btn:hover {
+      background-color: #0072ff;
+    }
+
+    .error-message {
+      color: #ff4d4d;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Study Icons -->
+  <div class="background-icons">
+    <img src="https://img.icons8.com/ios-filled/100/ffffff/book.png" style="top: 10%; left: 15%;" />
+    <img src="https://img.icons8.com/ios-filled/100/ffffff/graduation-cap.png" style="top: 40%; left: 70%;" />
+    <img src="https://img.icons8.com/ios-filled/100/ffffff/open-book.png" style="top: 75%; left: 30%;" />
+    <img src="https://img.icons8.com/ios-filled/100/ffffff/classroom.png" style="top: 20%; left: 85%;" />
+  </div>
+
+  <!-- Login/Register Box -->
+  <div class="login-box">
+    <h2>Access Study Portal</h2>
+    <form id="accessForm">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Your full name" required />
+      </div>
+      <div class="form-group">
+        <label for="username">Email or Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your email" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+        <span class="toggle-password" onclick="togglePassword()">Show</span>
+      </div>
+      <button type="submit" class="login-btn">Login</button>
+      <button type="button" class="register-btn" onclick="registerUser()">Register</button>
+      <div class="error-message" id="errorMsg">Invalid credentials. Try again.</div>
+    </form>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const passwordInput = document.getElementById("password");
+      const toggle = document.querySelector(".toggle-password");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggle.textContent = "Hide";
+      } else {
+        passwordInput.type = "password";
+        toggle.textContent = "Show";
+      }
+    }
+
+    document.getElementById("accessForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      // Replace with real authentication logic
+     if (
+  (username === "student@gmail.com" && password === "study123") ||
+  (username === "bharatkamuju@gmail.com" && password === "bharat123") ||
+  (username === "udaykanchi9948@gmail.com" && password === "Siva@123") ||
+  (username === "naveendarsipati@gmail.com" && password === "Naveen7")
+) {
+  window.location.href = "home.html"; // Redirect to main page
+} else {
+  document.getElementById("errorMsg").style.display = "block";
+}
+
+    });
+
+    function registerUser() {
+      alert("Registration feature coming soon!");
+      // You can redirect to a registration page or open a modal here
+    }
+  </script>
+</body>
+</html>

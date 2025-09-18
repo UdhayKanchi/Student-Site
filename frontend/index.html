@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knowledge Book</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #eef2f8;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
+
+    /* HEADER */
+    .header {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideInDown 0.8s ease-out;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #5d5dff;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #333;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #ff6b6b;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ff6b6b;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .cta-button {
+      background: #5d5dff;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 50px;
+      transition: 0.3s;
+    }
+
+    .cta-button:hover {
+      background: #4a4afe;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #eef2f8, #f9fbfd);
+      padding: 5rem 0;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      color: #5d5dff;
+      line-height: 1.2;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .highlight {
+      background: linear-gradient(90deg, #ff8c8c, #ff4c4c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      margin: 1.5rem 0 3rem;
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      color: #666;
+      animation: fadeIn 1.8s ease-in-out;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 16px 36px;
+      background: linear-gradient(45deg, #5d5dff, #8a8aff);
+      color: #fff;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 10px 20px rgba(93, 93, 255, 0.25);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(93, 93, 255, 0.35);
+    }
+
+    /* SECTIONS */
+    .section-title {
+      text-align: center;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      margin-bottom: 4rem;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      width: 80px;
+      height: 4px;
+      background: #ff6b6b;
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    .features {
+      padding: 8rem 0;
+      background: #ffffff;
+      border-top: 1px solid #e0e6ed;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .feature-card {
+      background: #eef2f8;
+      padding: 3rem 2rem;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+      position: relative;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #5d5dff, #ff6b6b);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-card .icon {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      color: #5d5dff;
+      animation: bounceIn 1s ease-in-out;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .feature-card p {
+      color: #666;
+    }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, #5d5dff, #4a4afe);
+      color: #fff;
+      text-align: center;
+      padding: 8rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: -25%;
+      left: -25%;
+      width: 150%;
+      height: 150%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 10%, transparent 70%);
+      animation: pulse 10s infinite ease-in-out;
+      pointer-events: none; /* fix: allow clicks */
+      z-index: 0;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta-subtitle {
+      margin-bottom: 2.5rem;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+    }
+
+    .cta-button-main {
+      background: #ff6b6b;
+      box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+      transition: 0.3s;
+    }
+
+    .cta-button-main:hover {
+      background: #ff4c4c;
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(255, 107, 107, 0.5);
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #1c2b3a;
+      color: #bdc3c7;
+      text-align: center;
+      padding: 3rem 0;
+    }
+
+    .footer .logo {
+      color: #ecf0f1;
+    }
+
+    .social-links {
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: #ecf0f1;
+      font-size: 1.5rem;
+      margin: 0 1rem;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #ff6b6b;
+      transform: scale(1.2);
+    }
+
+    .social-links a.gmail-icon:hover {
+      color: #d93025;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInDown {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(0.95);
+      }
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+
+      60% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+
+      80% {
+        transform: scale(0.9);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <nav class="navbar container">
+      <a href="#" class="logo">Knowledge Book</a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#cta">Pricing</a></li>
+        <li><a href="login.html" class="cta-button">Sign In</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-content">
+        <h1 class="hero-title">Unlock Your Potential with <br><span class="highlight">Unstoppable Flow.</span></h1>
+        <p class="hero-subtitle">The simple, elegant, and powerful way to manage your tasks and projects. Designed for students, creators, and doers.</p>
+        <a href="#cta" class="button">Get Started for Free <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <div class="container">
+        <h2 class="section-title">Designed for Your Success.</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="icon"><i class="fas fa-magic"></i></div>
+            <h3>Simplicity First</h3>
+            <p>A clean and intuitive interface that gets out of your way and lets you focus on what matters.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Powerful Analytics</h3>
+            <p>Gain insights into your productivity with beautiful, easy-to-read reports and progress trackers.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon"><i class="fas fa-cloud"></i></div>
+            <h3>Sync Across Devices</h3>
+            <p>Access your tasks from anywhere, on any device, with seamless and secure cloud sync.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cta" class="cta">
+      <div class="container cta-content">
+        <h2 class="cta-title">Ready to find your Flow?</h2>
+        <p class="cta-subtitle">Sign up today and start your journey towards a more productive and stress-free you. It's free!</p>
+        <a href="home.html" class="button cta-button-main">Start Your Free Trial With Knowledge Book <i class="fas fa-bolt"></i></a><br><br><br>
+        <a href="contact.html" class="button cta-button-main">Contact Us <i class="fas fa-bolt"></i></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <a href="#" class="logo">Flow.</a>
+      <p>&copy; 2025 Flow. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#" class="gmail-icon"><i class="fas fa-envelope"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
