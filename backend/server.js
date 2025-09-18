@@ -8,41 +8,42 @@ app.use(express.json());
 app.use(cors());
 
 // MongoDB connection
-const mongoURI = process.env.MONGODB_URI || "YOUR_LOCAL_OR_ATLAS_URI";
+const mongoURI = process.env.MONGODB_URI; // Use the fixed URI from Render env
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 })
 .then(() => console.log("✅ MongoDB Connected"))
 .catch(err => console.log("❌ MongoDB Connection Error:", err));
 
-// User schema
+// User schema (will use 'Credentials' collection)
 const userSchema = new mongoose.Schema({
   name: String,
-  username: { type: String, unique: true },
+  username: { type: String, unique: true }, // email/username
   password: String
 });
 
-const User = mongoose.model("User", userSchema);
+// Explicitly tell Mongoose to use the 'Credentials' collection
+const User = mongoose.model("Credentials", userSchema, "Credentials");
 
-// Register route
+// Registration route
 app.post("/register", async (req, res) => {
   try {
     const { name, username, password } = req.body;
-
-    if(!name || !username || !password) {
+    if (!name || !username || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
     const existingUser = await User.findOne({ username });
-    if(existingUser) return res.status(400).json({ message: "User already exists" });
+    if (existingUser) return res.status(400).json({ message: "User already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ name, username, password: hashedPassword });
 
     await newUser.save();
     res.json({ message: "User registered successfully" });
-  } catch(err) {
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -53,13 +54,14 @@ app.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
     const user = await User.findOne({ username });
-    if(!user) return res.status(400).json({ message: "Invalid credentials" });
+    if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if(!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+    if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
     res.json({ message: "Login successful" });
-  } catch(err) {
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });
